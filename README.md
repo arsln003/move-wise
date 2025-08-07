@@ -89,5 +89,3 @@ move-wise/
 ├── .env                    # Environment variables (not uploaded)
 └── README.md               # Project documentation
 ```
-
-[Arsalan (arsln003)](https://github.com/arsln003)
