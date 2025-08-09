@@ -57,7 +57,7 @@ try{
     }
 return (
 
-  <div className="flex flex-col items-center justify-center min-h-[calc(100vh-5rem)] space-y-6 px-4 text-center">
+  <div className="flex flex-col items-center justify-center -translate-y-25 min-h-[calc(100vh-5rem)] space-y-6 px-4 text-center">
     <ToastContainer/>
     <img 
       src={bus} 

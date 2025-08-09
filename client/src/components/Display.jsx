@@ -56,7 +56,7 @@ try{
           className="bg-[#e0dec3] shadow-md p-6 rounded-lg max-w-xl mx-auto"
         >
           <h2 className="text-xl font-semibold mb-4 text-green-600">
-            Best Matched Transport #{index + 1}
+          Transport :{index + 1}
           </h2>
           <ul className="mb-4 space-y-2 text-gray-700">
             <li><strong>Name:</strong> {transport.transportName}</li>

@@ -1,48 +1,43 @@
 const stopNames = [
-  "Yousuf Goth",
-  "Naval Colony",
-  "Baldia",
-  "Sher Shah",
-  "Gulbai",
-  "Agra Taj Colony",
-  "Daryabad",
-  "Jinnah Bridge",
-  "Tower"
-]
+  "bufferzone",
+  
+];
 
+async function getGeocodeForStops(stopNames) {
+  require('dotenv').config();
+const apiKey = process.env.API_KEY;
 
-async function getLatLngForStopsWithOpenCage(stopNames) {
-  const apiKey = '7a6f74d4200f495eaa3cf68cb64dbfa8'; // replace with your OpenCage key
-  const stopsWithCoordinates = [];
+  const results = [];
 
   for (const name of stopNames) {
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(name + ', Karachi, Pakistan')}&key=${apiKey}`;
+    const address = `${name}, Karachi, Pakistan`;
+    const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
 
     try {
       const response = await fetch(url);
       const data = await response.json();
 
-      if (data && data.results && data.results.length > 0) {
-        const location = data.results[0].geometry;
-        stopsWithCoordinates.push({
+      if (data.status === "OK" && data.results.length > 0) {
+        const location = data.results[0].geometry.location;
+        results.push({
           name,
           lat: location.lat,
           lng: location.lng
         });
       } else {
-        console.warn(`No data found for: ${name}`);
+        console.warn(`No result for: ${name}`);
       }
 
-      // optional: delay to avoid rate limiting
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Optional delay to avoid rate limits
+      await new Promise(res => setTimeout(res, 1000));
 
-    } catch (error) {
-      console.error(`Error fetching data for ${name}:`, error.message);
+    } catch (err) {
+      console.error(`Error fetching for ${name}:`, err.message);
     }
   }
 
-  console.log("Stops with coordinates:", stopsWithCoordinates);
-  return stopsWithCoordinates;
+  console.log("Stops with coordinates:", results);
+  return results;
 }
 
-getLatLngForStopsWithOpenCage(stopNames);
+getGeocodeForStops(stopNames);

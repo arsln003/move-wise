@@ -20,16 +20,17 @@ function haversineDistance(lat1, lon1, lat2, lon2) {
 
 // GET COORDINATES FUNCTION
 async function getCoordinates(placeName) {
-  const url=`https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(placeName + ', Karachi, Pakistan')}&key=${apiKey}`
-  
+   const url=`https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(placeName + ', Karachi, Pakistan')}&key=${apiKey}`
+  //  const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(placeName + ', Karachi, Pakistan')}&key=${apiKey}`;
   const res = await fetch(url);
   const data = await res.json();
+ 
    if (!data.results || data.results.length === 0) {
     throw new ExpressError(400, `Invalid location: "${placeName}"`);
   }
 
   const result = data.results[0];
-
+ //console.log(data.results[0].geometry.location)
  
   return { 
     lat: parseFloat(data.results[0].geometry.lat), 

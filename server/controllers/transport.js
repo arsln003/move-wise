@@ -5,7 +5,7 @@ const { haversineDistance, getCoordinates } = require("../services/geoService");
 
 module.exports.searchTransport=async(req,res)=>{
 const { pickup, dropoff } = req.body;
-
+console.log(pickup,dropoff)
     // Get coordinates from LocationIQ
     const pickupCoords = await getCoordinates(pickup);
     const dropoffCoords = await getCoordinates(dropoff);
